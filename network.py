@@ -19,6 +19,7 @@ class Error(Enum):
     invalid_mode = "invalid mode \nmode must be either random or from_file"
     file_not_found = "input file doesn't exist"
     ci_is_not_an_int = "%s is not an int"
+    ci_duplication = "%s is already exists in the network"
 
 comm = MPI.COMM_WORLD
 rank = comm.Get_rank()
@@ -107,7 +108,11 @@ if rank == 0:
             if not is_int(line):
                 finish(Error.ci_is_not_an_int, line[:-1])
 
-            vxs.append(line)
+            ci = int(line)
+            if ci in vxs:
+                finish(Error.ci_duplication, ci)
+
+            vxs.append(ci)
 
         if len(vxs) != number_of_communicators:
             finish(Error.invalid_number_of_communicators)
@@ -190,7 +195,7 @@ else:
                  win = data['small']
              send(data)
 
-    if win == ci:
+    if win == vxs[rank - 1]:
         state = State.leader
     else:
         state = State.loser
