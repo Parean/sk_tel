@@ -25,5 +25,17 @@
   ```
   mpiexec -n {num_of_processes} python network.py from_file {/path/to/file}
   ```
-  The file must contain num_of_processes - 1 lines, each of which contains an integer with an identity of a process. Number of processes involved in simulation == num_of_processes - 1, because one process draws all others.
-  Despite the fact, that algorithm uses network with ring topology, for drawing each process uses point-to-point communication with drawer.
+  or
+  ```
+  # main.py:
+
+  import network
+
+  network.simulate(['from_file', 'input.txt'])
+  ```
+  ```
+  mpiexec -n {num_of_processes} python main.py
+  ```
+
+  The file must contain num_of_processes - 1 lines, each of which contains an integer with an identity of a process. The number of processes involved in simulation == num_of_processes - 1, because one process draws all others.
+  Despite the fact, that algorithm uses network with a ring topology, for drawing each process uses point-to-point communication with the drawer.
