@@ -1,3 +1,3 @@
 import network
 
-network.simulate(['random'])
+network.simulate('from_file', 'input.txt')

@@ -31,7 +31,7 @@
 
   import network
 
-  network.simulate(['from_file', 'input.txt'])
+  network.simulate('from_file', 'input.txt')
   ```
   ```
   mpiexec -n {num_of_processes} python main.py

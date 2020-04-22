@@ -222,7 +222,7 @@ def communicator_worker():
     send_data_to_drawer({'need_stop':True})
 
 
-def simulate(argv):
+def simulate(*argv):
     if rank == 0:
         drawer_worker(argv)
     else:
@@ -230,4 +230,4 @@ def simulate(argv):
 
 
 if __name__ == '__main__':
-    simulate(sys.argv[1:])
+    simulate(*sys.argv[1:])
